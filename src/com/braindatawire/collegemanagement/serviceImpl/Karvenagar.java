@@ -97,9 +97,8 @@ public class Karvenagar implements Cjc {
 			faculty.setFname(sc.next());
 			System.out.println(" *Courses List*");
 			System.out.println("\nId Course");
-			for(Course c  : cList)
-			{
-				System.out.println(c.getCid()+"  "+c.getCname()+"("+c.getcType()+","+c.getcMode()+")");
+			for (Course c : cList) {
+				System.out.println(c.getCid() + "  " + c.getCname() + "(" + c.getcType() + "," + c.getcMode() + ")");
 			}
 			System.out.print("Enter a Course ID to assign Faculty to it : ");
 			int input = sc.nextInt();
@@ -114,7 +113,7 @@ public class Karvenagar implements Cjc {
 					fList.add(faculty);
 					countF++;
 				} else {
-					System.out.println("Invalid Course ID...");
+//					System.out.println("Invalid Course ID...");
 				}
 			}
 
@@ -129,11 +128,11 @@ public class Karvenagar implements Cjc {
 		if (countF > 0) {
 			System.out.println("  *ALL Faculties*");
 			Iterator<Faculty> itr = fList.iterator();
-			System.out.println("Id  Name  Course");
+			System.out.println("Id  Name    Course");
 			while (itr.hasNext()) {
 				Faculty faculty = itr.next();
-				System.out
-						.println(faculty.getFid() + "  " + faculty.getFname() + "  " + faculty.getCourse().getCname()+"("+faculty.getCourse().getcType()+","+faculty.getCourse().getcMode()+")");
+				System.out.println(faculty.getFid() + "  " + faculty.getFname() + "  " + faculty.getCourse().getCname()
+						+ "(" + faculty.getCourse().getcType() + "," + faculty.getCourse().getcMode() + ")");
 			}
 
 		} else {
@@ -163,7 +162,7 @@ public class Karvenagar implements Cjc {
 					bList.add(batch);
 					countB++;
 				} else {
-					System.out.println("Invalid Faculty ID...");
+//					System.out.println("Invalid Faculty ID...");
 				}
 			}
 		} else {
@@ -176,11 +175,14 @@ public class Karvenagar implements Cjc {
 		if (countB > 0) {
 			System.out.println("  *ALL Batches*");
 			Iterator<Batch> itr = bList.iterator();
-			System.out.println("Id  Name  Faculty  Course ");
+			System.out.println("Id  Name  Faculty   Course ");
 			while (itr.hasNext()) {
 				Batch batch = itr.next();
-				System.out.println(batch.getBid() + "  " + batch.getBname() + "  " + batch.getFaculty().getFname()
-						+ "   " + batch.getFaculty().getCourse().getCname());
+				System.out.println(batch.getBid() + " " + batch.getBname() + " " + batch.getFaculty().getFname()
+
+						+ " " + batch.getFaculty().getCourse().getCname() + "("
+						+ batch.getFaculty().getCourse().getcType() + "," + batch.getFaculty().getCourse().getcMode()
+						+ ")");
 			}
 		} else {
 			System.out.println("No Batch to show..");
@@ -204,16 +206,17 @@ public class Karvenagar implements Cjc {
 				Batch batch = itr.next();
 				if (input == batch.getBid()) {
 					student.setBatch(batch);
-					
+
 					student.setFees(student.getBatch().getFaculty().getCourse().getcFees());
-					System.out.print("First Installmetnt(Atleast 5000) of total course fees "+student.getFees() +" : ");
+					System.out.print(
+							"First Installmetnt(Atleast 5000) of total course fees " + student.getFees() + " : ");
 					student.setFeespaid(sc.nextDouble());
 					sList.add(student);
 					System.out.println("New Student '" + student.getSname() + "' added in batch '" + batch.getBname()
-					+ "' Successfully...");
+							+ "' Successfully...");
 					countS++;
 				} else {
-					System.out.println("Invalid Batch ID...");
+//					System.out.println("Invalid Batch ID...");
 				}
 			}
 		} else {
@@ -229,12 +232,38 @@ public class Karvenagar implements Cjc {
 			System.out.println("Id Name Batch Faculty Course TotalFees BalFees");
 			while (itr.hasNext()) {
 				Student student = itr.next();
-				System.out.println(student.getSid() + "  " + student.getSname() + "  " + student.getBatch().getBname()
-						+ "  " + student.getBatch().getFaculty().getFname() + "  "
-						+ student.getBatch().getFaculty().getCourse().getCname()+"   "+student.getFees()+"   "+student.getFeesbal());
+				System.out.println(student.getSid() + " " + student.getSname() + " " + student.getBatch().getBname()
+						+ " " + student.getBatch().getFaculty().getFname() + " "
+						+ student.getBatch().getFaculty().getCourse().getCname() + "   " + student.getFees() + "  "
+						+ student.getFeesbal());
 			}
 		} else {
 			System.out.println("No Students to show...");
+		}
+	}
+
+	public void payFees() {
+		System.out.println("Enter Student Id: ");
+		int input = sc.nextInt();
+
+		for (Student s : sList) {
+			if (input == s.getSid()) {
+				System.out.println("*Student Details*");
+				System.out.println("Student ID: " + s.getSid());
+				System.out.println("Student Name: " + s.getSname());
+				System.out.println("Student Batch: " + s.getBatch().getBname());
+				System.out.println("Student Course: " + s.getBatch().getFaculty().getCourse().getCname() + "("
+						+ s.getBatch().getFaculty().getCourse().getcType() + ","
+						+ s.getBatch().getFaculty().getCourse().getcMode() + ")");
+				System.out.println("Total Course Fees: " + s.getFees());
+				System.out.println("Total Fees Paid : " + s.getFeespaid());
+				System.out.println("Total Fees Balance: " + s.getFeesbal());
+				System.out.print("\nEnter Amount to pay: ");
+				s.payFees(sc.nextDouble());
+				System.out.println("Fees Paid Successfully...");
+				System.out.println("New Fees Balance: " + s.getFeesbal());
+
+			}
 		}
 	}
 }

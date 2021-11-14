@@ -20,6 +20,7 @@ public class Test {
 			System.out.println(" 6.View Batches");
 			System.out.println(" 7.Add Student");
 			System.out.println(" 8.View Students");
+			System.out.println(" 9.Pay Fees ");
 			System.out.print("Choose frome above operations : ");
 			int input = sc.nextInt();
 			System.out.println("-----------------------");
@@ -48,6 +49,9 @@ public class Test {
 				break;
 			case 8:
 				karve.viewStudent();
+				break;
+			case 9: 
+				karve.payFees();
 				break;
 			default:
 				System.out.println("Thank you....");

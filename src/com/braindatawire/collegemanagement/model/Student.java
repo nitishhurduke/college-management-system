@@ -9,6 +9,9 @@ public class Student {
 	private double feespaid;
 	private double feesbal;
 	
+	public void payFees(double amnt){
+		this.feespaid = feespaid + amnt;
+	}
 	public double getFees() {
 		return fees;
 	}
